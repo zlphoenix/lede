@@ -61,6 +61,7 @@ jobs:
           ./scripts/feeds install -a
       - name: Generate configuration file
         run: |
+          sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
           rm -f ./.config*
           touch ./.config
           #
