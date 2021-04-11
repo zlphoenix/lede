@@ -115,7 +115,7 @@ jobs:
 
           CONFIG_PACKAGE_xray-geodata=y
           CONFIG_PACKAGE_xray-plugin=y
-          CONFIG_XRAY_PLUGIN_PROVIDE_V2RAY_PLUGIN=y
+          
 
           CONFIG_PACKAGE_unzip=y
           CONFIG_PACKAGE_zsh=y
