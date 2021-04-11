@@ -58,7 +58,7 @@ jobs:
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
-          ./scripts/feeds install -a
+          ./scripts/feeds install -a          
       - name: Generate configuration file
         run: |
           #rm -f ./.config*
@@ -70,6 +70,59 @@ jobs:
           CONFIG_TARGET_IMAGES_GZIP=y
           CONFIG_KERNEL_BUILD_USER="OpenWrt-CI"
           CONFIG_KERNEL_BUILD_DOMAIN="Azure"
+
+          CONFIG_PACKAGE_netdata=y
+          CONFIG_PACKAGE_libattr=y
+          CONFIG_PACKAGE_libgnutls=y
+          CONFIG_GNUTLS_DTLS_SRTP=y
+          CONFIG_GNUTLS_ALPN=y
+          CONFIG_GNUTLS_OCSP=y          
+          CONFIG_GNUTLS_HEARTBEAT=y          
+          CONFIG_GNUTLS_PSK=y
+          CONFIG_GNUTLS_ANON=y
+
+          CONFIG_PACKAGE_libcap=y          
+          CONFIG_PACKAGE_libcares=y
+          CONFIG_PACKAGE_libedit=y
+          CONFIG_PACKAGE_libffi=y
+          CONFIG_PACKAGE_libtirpc=y
+          CONFIG_PACKAGE_lmdb=y
+
+          CONFIG_PACKAGE_luci-app-passwall=y
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks=y
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Server=y
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR=y
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Server=y
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Kcptun=y
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Haproxy=y
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ChinaDNS_NG=y
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Dns2socks=y
+         
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
+          CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
+
+          CONFIG_PACKAGE_luci-app-watchcat=y
+          CONFIG_PACKAGE_ddns-scripts_cloudflare.com-v4=y
+
+          CONFIG_PACKAGE_knot-dig=y
+          CONFIG_PACKAGE_haproxy=y
+
+          CONFIG_PACKAGE_shadowsocks-libev-ss-server=y
+
+          CONFIG_PACKAGE_chinadns-ng=y
+          CONFIG_PACKAGE_smartdns=y
+
+          CONFIG_PACKAGE_xray-geodata=y
+          CONFIG_PACKAGE_xray-plugin=y
+          CONFIG_XRAY_PLUGIN_PROVIDE_V2RAY_PLUGIN=y
+
+          CONFIG_PACKAGE_unzip=y
+          CONFIG_PACKAGE_zsh=y
+          CONFIG_PACKAGE_coreutils-nohup=y
+          CONFIG_PACKAGE_open-vm-tools=y
+          CONFIG_PACKAGE_watchcat=y
+
           EOF
           #
           # ===============================================================
