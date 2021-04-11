@@ -75,7 +75,7 @@ jobs:
           
           
           #Custom .config 
-                    CONFIG_MODULES=y
+          CONFIG_MODULES=y
           CONFIG_HAVE_DOT_CONFIG=y
           CONFIG_TARGET_x86=y
           CONFIG_TARGET_x86_64=y
