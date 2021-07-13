@@ -1,14 +1,3 @@
-define Build/append-okli-kernel
-	dd if="$(KDIR)/loader-$(word 1,$(1)).uImage" >> "$@"
-endef
-
-define Build/prepad-okli-kernel
-  -[ -f "$@" ] && \
-  dd if="$(KDIR)/loader-$(word 1,$(1)).uImage" of="$@".tmp bs=64k conv=sync && \
-  cat "$@" >>"$@".tmp && \
-  mv "$@".tmp "$@"
-endef
-
 # attention: only zlib compression is allowed for the boot fs
 define Build/zyxel-buildkerneljffs
 	rm -rf  $(KDIR_TMP)/zyxelnbg6716
@@ -81,9 +70,10 @@ define Device/arris_sbr-ac1750
   PAGESIZE := 2048
   KERNEL := kernel-bin | append-dtb | gzip | uImage gzip
   KERNEL_INITRAMFS := kernel-bin | append-dtb | uImage none
-  IMAGES += kernel1.bin rootfs1.bin
+  IMAGES += kernel1.bin rootfs1.bin factory-kfs.bin
   IMAGE/kernel1.bin := append-kernel | check-size $$$$(KERNEL_SIZE)
   IMAGE/rootfs1.bin := append-ubi | check-size
+  IMAGE/factory-kfs.bin := append-kernel | pad-to $$$$(KERNEL_SIZE) | append-ubi | check-size $$$$(IMAGE_SIZE)
   IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
   UBINIZE_OPTS := -E 5
 endef
@@ -119,10 +109,10 @@ define Device/domywifi_dw33d-nor
   COMPILE/loader-$(1).uImage := append-loader-okli $(1) | pad-to 64k | lzma | uImage lzma
   KERNEL := kernel-bin | append-dtb | lzma | uImage lzma -M 0x4f4b4c49
   IMAGES := sysupgrade.bin breed-factory.bin
-  IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(BLOCKSIZE) | append-rootfs | pad-rootfs | append-metadata | \
-	check-size
+  IMAGE/sysupgrade.bin := append-kernel | pad-to $$$$(BLOCKSIZE) | append-rootfs | pad-rootfs | \
+			  append-metadata | check-size
   IMAGE/breed-factory.bin := append-kernel | pad-to $$$$(BLOCKSIZE) | append-rootfs | pad-rootfs | \
-	prepad-okli-kernel $(1) | pad-to 14528k | append-okli-kernel $(1)
+			     prepad-okli-kernel $(1) | pad-to 14528k | append-okli-kernel $(1)
 endef
 TARGET_DEVICES += domywifi_dw33d-nor
 
