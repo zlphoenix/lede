@@ -25,26 +25,26 @@
 		compatible = "gpio-leds";
 
 		wlan2g {
-			label = "green:wlan2g";
+			label = "arris:green:wlan2g";
 			gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
 			linux,default-trigger = "phy1tpt";
 		};
 
 		wlan5g {
-			label = "green:wlan5g";
+			label = "arris:green:wlan5g";
 			gpios = <&gpio 21 GPIO_ACTIVE_LOW>;
 			linux,default-trigger = "phy0tpt";
 		};
 
 		usb {
-			label = "green:usb";
+			label = "arris:green:usb";
 			gpios = <&gpio 22 GPIO_ACTIVE_LOW>;
 			trigger-sources = <&hub_port0>, <&hub_port1>;
 			linux,default-trigger = "usbport";
 		};
 
 		led_wps: wps {
-			label = "green:wps";
+			label = "arris:green:wps";
 			gpios = <&gpio 23 GPIO_ACTIVE_LOW>;
 		};
 	};
@@ -133,7 +133,7 @@
 			reg = <0x100000 0x100000>;
 		};
 
-		partition@200000 {
+		kernel: partition@200000 {
 			label = "kernel";
 			reg = <0x200000 0x400000>;
 		};
@@ -159,6 +159,16 @@
 			label = "caldata";
 			reg = <0x6d00000 0x100000>;
 			read-only;
+		};
+		
+		kfs: partition@kfs {
+			label = "kfs";
+			reg = <0x200000 0x2400000>;
+		};
+		
+		kfs2: partition@kfs2 {
+			label = "kfs2";
+			reg = <0x2600000 0x2400000>;
 		};
 	};
 };
